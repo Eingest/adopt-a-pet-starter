@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { getPetDetails } from '../../api/petfinder';
 import Hero from '../../components/hero';
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams, Redirect, useHistory } from 'react-router-dom';
 
 const PetDetailsPage = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { id } = useParams();
+  const history = useHistory();
+
+  const goBack = () => {
+    history.goBack();
+  };
 
   useEffect(() => {
     async function getPetsData() {
@@ -56,6 +61,11 @@ const PetDetailsPage = () => {
               <h3>Description</h3>
               <p>{data.description}</p>
             </div>
+          </div>
+          <div className="actions-container">
+            <button className="button" onClick={goBack}>
+              Go Back
+            </button>
           </div>
         </main>
       )}
